@@ -1,14 +1,18 @@
+/* Container styling */
 .container {
-    max-width: 800px;
+    width: 80%;
     margin: 0 auto;
     padding: 20px;
+    font-family: Arial, sans-serif;
   }
   
-  h1, h2 {
+  h1 {
     text-align: center;
     color: #333;
+    margin-bottom: 20px;
   }
   
+  /* Search and sorting controls */
   .controls {
     display: flex;
     justify-content: space-between;
@@ -16,16 +20,18 @@
   }
   
   .controls input {
-    width: 70%;
     padding: 8px;
-    border: 1px solid #ddd;
+    font-size: 16px;
+    border: 1px solid #ccc;
     border-radius: 5px;
+    width: 60%;
   }
   
   .controls button {
     padding: 8px 16px;
+    font-size: 16px;
     background-color: #007bff;
-    color: #fff;
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -35,46 +41,103 @@
     background-color: #0056b3;
   }
   
+  /* List styling */
   ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
   }
   
   .li {
-    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
     cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .li:hover {
+    background-color: #f1f1f1;
   }
   
   .student-info {
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
     display: flex;
     align-items: center;
-    gap: 15px;
   }
   
-  .student-info img.student-img {
-    width: 75px;
-    height: 75px;
+  .student-img {
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    border: 2px solid #ddd;
+    margin-right: 15px;
+    object-fit: cover;
   }
   
+  .student-info div {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* Student details section */
   .student-details {
-    text-align: center;
-    margin-top: 20px;
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
   }
   
-  .student-details .student-img-preview {
+  .student-details h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .student-img-preview {
     width: 150px;
     height: 150px;
+    object-fit: cover;
+    margin: 0 auto 10px;
+    display: block;
     border-radius: 50%;
-    margin-bottom: 10px;
   }
   
   .student-details input[type="file"] {
-    margin-top: 10px;
+    display: block;
+    margin: 10px auto;
+    font-size: 16px;
+  }
+  
+  .student-details input[type="file"]:hover {
+    cursor: pointer;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .controls {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .controls input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    .controls button {
+      width: 100%;
+    }
+  
+    .student-info {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .student-img {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
   }
   
