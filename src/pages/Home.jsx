@@ -50,42 +50,25 @@ const Home = () => {
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
   };
 
-  const handleImageChange = async (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file && selectedStudent) {
-      const formData = new FormData();
-      formData.append('image', file);
-
-      try {
-        const response = await axios.patch(
-          `http://localhost:8080/api/students/${selectedStudent._id}/image`,
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-        );
-
-        // Обновить студента с новым изображением
+    if (file) {
+      setImagePreview(URL.createObjectURL(file));
+      if (selectedStudent) {
         const updatedStudents = students.map((student) =>
-          student._id === response.data._id ? response.data : student
+          student._id === selectedStudent._id
+            ? { ...student, image: URL.createObjectURL(file) }
+            : student
         );
-
         setStudents(updatedStudents);
         setFilteredStudents(updatedStudents);
-        setImagePreview(response.data.image ? `http://localhost:8080${response.data.image}` : null);
-        alert('Image updated successfully');
-      } catch (error) {
-        console.error('Error updating image:', error);
-        alert('Failed to update image');
       }
     }
   };
 
   const handleSelectStudent = (student) => {
     setSelectedStudent(student);
-    setImagePreview(student.image ? `http://localhost:8080${student.image}` : null);
+    setImagePreview(student.image || null);
   };
 
   return (
@@ -114,11 +97,7 @@ const Home = () => {
             <div className="student-info">
               <img
                 className="student-img"
-                src={
-                  student.image
-                    ? `http://localhost:8080${student.image}`
-                    : 'https://via.placeholder.com/150'
-                }
+                src={student.image || 'https://via.placeholder.com/150'}
                 alt={`${student.firstName} ${student.lastName}`}
               />
               <div>
