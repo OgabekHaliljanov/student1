@@ -1,41 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../pages/AddStudent.css'; // Обновите путь в зависимости от расположения файла
-
+import '../pages/AddStudent.css';  // Путь зависит от местоположения компонента
 const AddStudent = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [age, setAge] = useState('');
   const [className, setClassName] = useState('');
   const [yearOfBirth, setYearOfBirth] = useState('');
-  const [image, setImage] = useState(null);
-  const [preview, setPreview] = useState(null);
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImage(file);
-      setPreview(URL.createObjectURL(file));
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('firstName', firstName);
-    formData.append('lastName', lastName);
-    formData.append('age', age);
-    formData.append('class', className);
-    formData.append('yearOfBirth', yearOfBirth);
-    if (image) {
-      formData.append('image', image);
-    }
-
+    const studentData = { firstName, lastName, age, class: className, yearOfBirth };
+    
     try {
-      const response = await axios.post('http://localhost:8080/api/students', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const response = await axios.post('http://localhost:8080/api/students', studentData);
       console.log('Student added:', response.data);
       alert('Student added successfully');
     } catch (error) {
@@ -83,12 +61,6 @@ const AddStudent = () => {
           onChange={(e) => setYearOfBirth(e.target.value)}
           required
         />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
-        {preview && <img className="image-preview" src={preview} alt="Preview" />}
         <button type="submit">Add Student</button>
       </form>
     </div>
